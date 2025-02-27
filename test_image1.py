@@ -28,7 +28,7 @@ def fill_label(labels, n_class, img_size):
         fill[i, i, :, :] = 1
 
     y_fill = fill[labels]
-    
+
     return y_fill
 
 
@@ -39,9 +39,9 @@ image = Variable(ToTensor()(image), volatile=True).unsqueeze(0)
 label = 1
 y_fill = fill_label(label, 14, 256)
 y_fill = Variable(y_fill).unsqueeze(0)
-start = time.clock()
+start = time.perf_counter()
 out = model(image, y_fill)
-elapsed = (time.clock() - start)
+elapsed = (time.perf_counter() - start)
 print('cost' + str(elapsed) + 's')
 out_img = ToPILImage()(out[0].data.cpu())
 out_img.save('SR.png')
